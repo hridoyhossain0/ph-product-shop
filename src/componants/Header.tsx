@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { authClient } from "@/lib/auth-client";
 import BanglaDate from "./Date";
+import NavBar from "./NavBar";
 
 
 
@@ -95,6 +96,7 @@ const Header = () => {
 
                 </div>
             </nav>
+            <NavBar/>
 
             
         </div>
