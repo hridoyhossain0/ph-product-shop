@@ -5,25 +5,30 @@ import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import toast from 'react-hot-toast';
 
 export default function SignUpPage() {
   const router = useRouter();
-  
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setLoading(true);
-    setErrorMsg('');
+    setErrorMsg("");
 
     if (password !== confirmPassword) {
-      setErrorMsg('পাসওয়ার্ড দুটি মেলেনি!');
+      const message = "পাসওয়ার্ড দুটি মেলেনি!";
+      setErrorMsg(message);
+      toast.error(message);
       setLoading(false);
       return;
     }
@@ -33,38 +38,72 @@ export default function SignUpPage() {
         name,
         email,
         password,
-        callbackURL: '/'
+        callbackURL: "/",
       });
 
-      if (data) {
-        router.push('/');
+      if (error) {
+        const message =
+          error.message || "অ্যাকাউন্ট তৈরি করতে ব্যর্থ হয়েছে।";
+
+        setErrorMsg(message);
+        toast.error(message);
+        return;
       }
 
-      if (error) {
-        setErrorMsg(error.message || 'অ্যাকাউন্ট তৈরি করতে ব্যর্থ হয়েছে।');
+      if (data) {
+        toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+        router.push("/");
+        router.refresh();
       }
     } catch (err) {
       console.error(err);
-      setErrorMsg('সার্ভারে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+
+      const message =
+        "সার্ভারে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+
+      setErrorMsg(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSocialSignIn = async (provider: 'google' | 'github') => {
+
+
+  const handleSocialSignIn = async (
+    provider: "google" | "github"
+  ) => {
+    setErrorMsg("");
+
+    const providerName =
+      provider === "google" ? "Google" : "GitHub";
+
+    const toastId = toast.loading(
+      `${providerName} দিয়ে সাইন আপ হচ্ছে...`
+    );
+
     try {
       await authClient.signIn.social({
         provider,
-        callbackURL: '/'
+        callbackURL: "/",
       });
+
+      // OAuth redirect হলে পরবর্তী page-এ চলে যাবে।
+      toast.dismiss(toastId);
     } catch (err) {
       console.error(err);
+
+      const message =
+        `${providerName} দিয়ে সাইন আপ করা যায়নি। আবার চেষ্টা করুন।`;
+
+      setErrorMsg(message);
+      toast.error(message, { id: toastId });
     }
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F4F6F4] px-4 font-sans py-10">
-      
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F4F6F4] px-4 font-sans mt-[-10]">
+
       {/* Header Info */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-900 tracking-wide mb-1">
@@ -77,7 +116,7 @@ export default function SignUpPage() {
 
       {/* Main Card Container */}
       <div className="w-full max-w-[460px] bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
-        
+
         {errorMsg && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded text-sm text-center">
             {errorMsg}
@@ -85,7 +124,7 @@ export default function SignUpPage() {
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          
+
           {/* Name Field */}
           <div className="flex flex-col gap-1.5">
             <label htmlFor="name" className="text-gray-700 font-medium text-sm text-left">
@@ -211,7 +250,7 @@ export default function SignUpPage() {
 
       {/* Back to Home Link */}
       <Link
-        href="/" 
+        href="/"
         className="mt-6 text-sm text-gray-500 hover:text-gray-800 transition-colors font-medium flex items-center gap-1"
       >
         ← হোম পেজে ফিরে যান

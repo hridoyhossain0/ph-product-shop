@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -21,28 +22,52 @@ export default function ProfilePage() {
         }
     }, [session?.user?.name]);
 
+
     const handleSignOut = async () => {
+        const toastId = toast.loading("সাইন আউট হচ্ছে...");
+
         try {
             await authClient.signOut({
                 fetchOptions: {
-                    onSuccess: () => router.push("/sign-in"),
+                    onSuccess: () => {
+                        toast.success("সফলভাবে সাইন আউট হয়েছে!", {
+                            id: toastId,
+                        });
+                        router.push("/sign-in");
+                        router.refresh();
+                    },
+                    onError: (ctx) => {
+                        toast.error(
+                            ctx.error.message || "সাইন আউট করা যায়নি!",
+                            { id: toastId }
+                        );
+                    },
                 },
             });
         } catch (error) {
             console.error("Sign out error:", error);
+            toast.error("সাইন আউট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।", {
+                id: toastId,
+            });
         }
     };
+
+
 
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!name.trim()) {
-            setMessage("অনুগ্রহ করে আপনার নাম লিখুন।");
+            const message = "অনুগ্রহ করে আপনার নাম লিখুন।";
+            setMessage(message);
+            toast.error(message);
             return;
         }
 
         setIsSaving(true);
         setMessage("");
+
+        const toastId = toast.loading("প্রোফাইল আপডেট হচ্ছে...");
 
         try {
             const result = await authClient.updateUser({
@@ -50,18 +75,28 @@ export default function ProfilePage() {
             });
 
             if (result.error) {
-                setMessage(
-                    result.error.message || "আপডেট করা যায়নি। আবার চেষ্টা করুন।"
-                );
+                const message =
+                    result.error.message || "আপডেট করা যায়নি। আবার চেষ্টা করুন।";
+
+                setMessage(message);
+                toast.error(message, { id: toastId });
             } else {
-                setMessage("আপনার তথ্য সফলভাবে আপডেট হয়েছে।");
+                const message = "আপনার তথ্য সফলভাবে আপডেট হয়েছে।";
+
+                setMessage(message);
+                toast.success(message, { id: toastId });
             }
-        } catch {
-            setMessage("আপডেট করা যায়নি। আবার চেষ্টা করুন।");
+        } catch (error) {
+            console.error("Profile update error:", error);
+
+            const message = "আপডেট করা যায়নি। আবার চেষ্টা করুন।";
+            setMessage(message);
+            toast.error(message, { id: toastId });
         } finally {
             setIsSaving(false);
         }
     };
+
 
     if (isPending) {
         return (
@@ -173,8 +208,8 @@ export default function ProfilePage() {
                             <p
                                 role="status"
                                 className={`mt-3 text-xs ${message.includes("সফলভাবে")
-                                        ? "text-green-700"
-                                        : "text-red-600"
+                                    ? "text-green-700"
+                                    : "text-red-600"
                                     }`}
                             >
                                 {message}

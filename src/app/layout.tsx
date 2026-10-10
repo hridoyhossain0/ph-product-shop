@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/componants/Header";
 import Footer from "@/componants/Footer";
 import Marquee from "@/app/(protected)/Marquee";
+import { Toaster } from "react-hot-toast";
 
 const notoSerifBangali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -34,7 +35,36 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         <Marquee />
-        <main className="bg-[#F0F5F0]">{children}</main>
+        <main className="bg-[#F0F5F0]">
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            containerStyle={{
+              top: 8, // below your fixed header
+              zIndex: 99999,
+            }}
+            toastOptions={{
+              duration: 5000,
+              style: {
+                background: "#ffffff",
+                color: "#202923",
+                border: "1px solid #e5e7eb",
+                borderRadius: "12px",
+                zIndex: 99999,
+                padding: "14px 16px",
+                fontSize: "14px",
+              },
+              success: {
+                iconTheme: {
+                  primary: "#008744",
+                  secondary: "#ffffff",
+                },
+              },
+            }}
+          />
+          
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

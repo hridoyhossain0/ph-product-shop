@@ -8,6 +8,7 @@ import BanglaDate from "./Date";
 import NavBar from "./NavBar";
 import ProfileDropdown from "./ProfileDropdown";
 import Marquee from "../app/(protected)/Marquee";
+import toast from "react-hot-toast";
 
 
 
@@ -21,17 +22,35 @@ const Header = () => {
 
     const { data: session, isPending } = authClient.useSession();
 
+
     const handleSignOut = async () => {
+        const toastId = toast.loading("সাইন আউট হচ্ছে...");
+
         try {
             await authClient.signOut({
                 fetchOptions: {
                     onSuccess: () => {
-                        router.push('/sign-in');
+                        toast.success("সফলভাবে সাইন আউট হয়েছে!", {
+                            id: toastId,
+                        });
+
+                        router.push("/sign-in");
+                        router.refresh();
+                    },
+                    onError: (ctx) => {
+                        toast.error(
+                            ctx.error.message || "সাইন আউট করা যায়নি!",
+                            { id: toastId }
+                        );
                     },
                 },
             });
         } catch (err) {
-            console.error('Sign out error:', err);
+            console.error("Sign out error:", err);
+
+            toast.error("সাইন আউট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।", {
+                id: toastId,
+            });
         }
     };
 

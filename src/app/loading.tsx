@@ -13,7 +13,7 @@ export default function Loading() {
     const nativeShimmer = "bg-[linear-gradient(100deg,#E2E8E4_20%,#F4F6F4_45%,#E2E8E4_70%)] bg-[length:250%_100%] animate-[pulse_1.5s_infinite_linear]";
 
     return (
-        <div className="min-h-screen bg-[#F4F6F4] text-[#1E2722] font-sans antialiased" lang="bn">
+        <div className="min-h-screen mt-25 bg-[#F4F6F4] text-[#1E2722] font-sans antialiased" lang="bn">
             <span className="sr-only" role="status">বাজারের দামের তথ্য লোড হচ্ছে…</span>
 
             {/* Top Header */}
