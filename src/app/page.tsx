@@ -46,8 +46,8 @@ export default async function Home() {
   const products = await getProduct()
 
   const totalProductsBn = new Intl.NumberFormat('bn-BD').format(products.length);
-  const filterUpProduct = products.filter(product => product.change.dir === 'up')
-  const filterDownProduct = products.filter(product => product.change.dir === 'down')
+  const filterUpProduct = products.filter((product : ProductType) => product.change.dir === 'up')
+  const filterDownProduct = products.filter((product : ProductType)=> product.change.dir === 'down')
 
 
   const risers = filterUpProduct
@@ -57,7 +57,7 @@ export default async function Home() {
       if (product.change?.dir === "down") netChange = -product.change.pct;
       return { ...product, netChange };
     })
-    .sort((a, b) => b.netChange - a.netChange)
+    .sort((a : ProductType & { netChange: number }, b : ProductType & { netChange: number }) => b.netChange - a.netChange)
     .slice(0, 6);
 
   const droper = filterDownProduct
@@ -67,7 +67,7 @@ export default async function Home() {
       if (product.change?.dir === "down") netChange = -product.change.pct;
       return { ...product, netChange };
     })
-    .sort((a, b) => b.netChange  - a.netChange )
+    .sort((a : ProductType & { netChange: number }, b : ProductType & { netChange: number })  => b.netChange  - a.netChange )
     .slice(0, 6);
   return (
 
