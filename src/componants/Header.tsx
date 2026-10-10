@@ -7,6 +7,7 @@ import { authClient } from "@/lib/auth-client";
 import BanglaDate from "./Date";
 import NavBar from "./NavBar";
 import ProfileDropdown from "./ProfileDropdown";
+import Marquee from "../app/(protected)/Marquee";
 
 
 
@@ -35,8 +36,8 @@ const Header = () => {
     };
 
     return (
-        <div>
-            <nav className="w-full bg-[#FAFAFA] border-b border-gray-100 py-3.5 px-6 ">
+        <div className="fixed top-0 left-0 z-50 w-full bg-[#FAFCFA]">
+            <nav className="w-full bg-[#FAFCFA]  border-b-2 border-[#F5F9F5]  py-3.5 px-6 ">
                 <div className="container mx-auto flex items-center justify-between">
 
                     {/* Left Side: Logo & App Branding Meta */}

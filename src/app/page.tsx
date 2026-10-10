@@ -74,14 +74,14 @@ export default async function Home() {
     .slice(0, 6);
   return (
 
-    <div>
+    <div className="mt-10">
 
       <HeroSection />
 
 
       {/* upper percentage product */}
-      <div className="container space-y-4 mx-auto my-10">
-        <h1 className="text-2xl"><span className="text-[#008744]">▲</span> আজ দাম বেড়েছে</h1>
+      <div className="container space-y-5 mx-auto my-15">
+        <h1 className="text-3xl"><span className="text-[#008744]">▲</span> আজ দাম বেড়েছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
           {risers.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
@@ -89,8 +89,8 @@ export default async function Home() {
       
 
       {/* lower percentage product */}
-      <div className="container space-y-4 mx-auto my-10">
-        <h1 className="text-2xl"><span className="text-[#008744]">▼</span> আজ দাম কমেছে</h1>
+      <div className="container space-y-5 mx-auto my-15">
+        <h1 className="text-3xl"><span className="text-[#008744]">▼</span> আজ দাম কমেছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
           {droper.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
@@ -101,7 +101,7 @@ export default async function Home() {
       {/* all products */}
       <div
         id="allProduct" 
-        className="container space-y-4 mx-auto my-10 scroll-mt-6">
+        className="container space-y-5 mx-auto my-15 scroll-mt-6">
 
         <ProductToolbar products={products} />
       </div>

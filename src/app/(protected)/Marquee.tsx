@@ -168,6 +168,7 @@ export default function Marquee() {
                 py-2
                 overflow-hidden
                 select-none
+                mt-34
             "
         >
             <MarqueeText

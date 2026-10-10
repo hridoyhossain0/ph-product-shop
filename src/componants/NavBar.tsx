@@ -32,7 +32,7 @@ const NavBar = () => {
         fetchCategories();
     }, []);
     return (
-        <div className="w-full bg-white border-b border-gray-100 py-3 px-6 font-sans">
+        <div className="w-full bg-[#FAFCFA] border-b border-[#F5F9F5] py-3 px-6 font-sans">
             <div className="max-w-[1280px] mx-auto flex gap-4 items-center overflow-x-auto no-scrollbar">
                 {categoriesLoading ? (
                     <p className="text-xs text-gray-400 font-medium">ক্যাটাগরি লোড হচ্ছে...</p>
