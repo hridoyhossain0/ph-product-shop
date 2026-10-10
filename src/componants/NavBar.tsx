@@ -37,7 +37,7 @@ const NavBar = () => {
                 ) : (
                     categories.map((c) => (
                         <Link
-                            href={`/category/${c.slug}`}
+                            href={`/category/${c.id}`}
                             key={c.id}
                             className="flex items-center gap-2 px-3.5 py-1.5 bg-[#F4F6F4] hover:bg-[#E8EFEA] rounded-full transition-colors group cursor-pointer border border-transparent hover:border-[#008744]/20 flex-shrink-0"
                         >
