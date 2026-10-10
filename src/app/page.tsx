@@ -32,10 +32,11 @@ export interface Market {
   max: number
 }
 
-
+// const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products'
+const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
 
 const getProduct = async () => {
-  const res = await fetch('https://api.api-store.workers.dev/api/bazardor/products')
+  const res = await fetch(API_URL)
   const data = res.json()
   return data
 

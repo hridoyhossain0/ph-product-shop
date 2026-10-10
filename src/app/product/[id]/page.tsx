@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { RiArrowRightSLine } from 'react-icons/ri';
 
-const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products';
+// const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products';
+const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products';
 
 async function getProduct(id: string): Promise<ProductType | null> {
     const response = await fetch(API_URL, {

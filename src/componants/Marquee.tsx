@@ -40,6 +40,10 @@ export default function Marquee() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products'
+    const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
+
+
     // Convert English number → Bangla number
     const toBanglaDigits = (num: number | string): string => {
         const banglaNums = [
@@ -89,9 +93,7 @@ export default function Marquee() {
                 setLoading(true);
                 setError(null);
 
-                const response = await fetch(
-                    'https://api.api-store.workers.dev/api/bazardor/products'
-                );
+                const response = await fetch(API_URL);
 
                 if (!response.ok) {
                     throw new Error(

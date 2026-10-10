@@ -6,16 +6,17 @@ import Image from 'next/image';
 import { authClient } from "@/lib/auth-client";
 import BanglaDate from "./Date";
 import NavBar from "./NavBar";
+import ProfileDropdown from "./ProfileDropdown";
 
 
 
 const Header = () => {
     const router = useRouter();
 
-    
-    
 
-    
+
+
+
 
     const { data: session, isPending } = authClient.useSession();
 
@@ -50,7 +51,7 @@ const Header = () => {
                                     বাজার দর
                                 </span>
                                 <span className="text-[11px] text-gray-400 font-medium mt-0.5">
-                                    <BanglaDate/>
+                                    <BanglaDate />
                                 </span>
                             </div>
                         </div>
@@ -61,20 +62,12 @@ const Header = () => {
                         {isPending ? (
                             <div className="h-9 w-20 bg-gray-200 animate-pulse rounded-lg"></div>
                         ) : session ? (
-                            <div className="flex items-center gap-4">
-                                <Link
-                                    href="/profile"
-                                    className="text-sm font-bold text-gray-700 hover:text-[#008744] transition-colors"
-                                >
-                                    {session.user.name || 'আমার প্রোফাইল'}
-                                </Link>
-                                <button
-                                    onClick={handleSignOut}
-                                    className="text-sm font-bold text-red-600 hover:underline cursor-pointer"
-                                >
-                                    সাইন আউট
-                                </button>
-                            </div>
+                            <ProfileDropdown
+                                name={session.user.name}
+                                email={session.user.email}
+                                image={session.user.image}
+                                handleSignOut={handleSignOut}
+                            />
                         ) : (
                             <>
                                 <Link
@@ -96,9 +89,9 @@ const Header = () => {
 
                 </div>
             </nav>
-            <NavBar/>
+            <NavBar />
 
-            
+
         </div>
     );
 };

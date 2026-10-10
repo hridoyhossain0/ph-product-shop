@@ -1,6 +1,5 @@
 import { ProductType } from '@/app/page';
 import React from 'react';
-import BanglaDate from '../Date';
 import Link from 'next/link';
 
 const AllProducts = ({ product }: { product: ProductType }) => {
@@ -20,6 +19,27 @@ const AllProducts = ({ product }: { product: ProductType }) => {
         };
 
         return unitMap[unit.toLowerCase().trim()] || unit;
+    };
+
+
+    const toBengaliNumber = (value: number | string) => {
+        const bengaliDigits = [
+            "০",
+            "১",
+            "২",
+            "৩",
+            "৪",
+            "৫",
+            "৬",
+            "৭",
+            "৮",
+            "৯",
+        ];
+
+        return String(value).replace(
+            /\d/g,
+            (digit) => bengaliDigits[Number(digit)]
+        );
     };
     return (
         <Link href={`/product/${product.id}`}>
@@ -48,7 +68,7 @@ const AllProducts = ({ product }: { product: ProductType }) => {
                             আজকের দাম
                         </span>
                         <span className="text-2xl font-black text-gray-900">
-                            <BanglaDate /> <span className="text-xl font-bold ml-0.5">টাকা</span>
+                            {toBengaliNumber(product.today)} <span className="text-xl font-bold ml-0.5">টাকা</span>
                         </span>
                     </div>
 
