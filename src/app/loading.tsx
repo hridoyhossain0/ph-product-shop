@@ -17,7 +17,7 @@ export default function Loading() {
             <span className="sr-only" role="status">বাজারের দামের তথ্য লোড হচ্ছে…</span>
 
             {/* Top Header */}
-            <header className="w-full bg-[#006A38] h-14 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+            <header className="w-full bg-[#86b6a0] h-14 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
                 <div className="flex items-center gap-6">
                     <div className="w-24 h-6 rounded bg-white/20 animate-pulse" />
                     <div className="hidden md:flex items-center gap-4">

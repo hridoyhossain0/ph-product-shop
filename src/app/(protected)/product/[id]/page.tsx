@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { RiArrowRightSLine } from 'react-icons/ri';
 
 // const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products';
-const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products';
+// const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products';
+const API_URL = 'https://openapi.programming-hero.com/api/bazardor/products';
 
 async function getProduct(id: string): Promise<ProductType | null> {
     const response = await fetch(API_URL, {
@@ -100,7 +101,7 @@ export default async function ProductDetailPage({
                         হোম
                     </Link>
                     <span><RiArrowRightSLine /></span>
-                    <span>{product.categoryNameBn}</span>
+                    <Link href={`/category/${product.category}`}><span>{product.categoryNameBn}</span></Link>
                     <span><RiArrowRightSLine /></span>
                     <span className="font-semibold text-gray-700">
                         {product.nameBn}

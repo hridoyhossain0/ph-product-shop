@@ -41,7 +41,8 @@ export default function Marquee() {
     const [error, setError] = useState<string | null>(null);
 
     // const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products'
-    const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
+    // const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products?limit=20'
+    const API_URL = 'https://openapi.programming-hero.com/api/bazardor/products'
 
 
     // Convert English number → Bangla number

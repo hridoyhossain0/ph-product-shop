@@ -11,13 +11,15 @@ interface Category {
 const NavBar = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [categoriesLoading, setCategoriesLoading] = useState(true);
+    const API_URL = "https://openapi.programming-hero.com/api/bazardor/categories"
+    // const API_URL = "https://api.abcz.workers.dev/api/bazardor/categories"
 
     useEffect(() => {
 
 
         const fetchCategories = async () => {
             try {
-                const res = await fetch('https://api.abcz.workers.dev/api/bazardor/categories');
+                const res = await fetch(API_URL);
                 const data = await res.json();
                 setCategories(data);
             } catch (err) {

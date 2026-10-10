@@ -5,7 +5,7 @@ import Image from 'next/image';
 import BanglaDate from "../Date";
 
 export default function HeroSection() {
-    
+
 
     return (
         <div className='container mt-8 mx-auto'>
@@ -16,7 +16,7 @@ export default function HeroSection() {
 
                     {/* Dynamic Badge Date */}
                     <div className="bg-[#E2ECE5] text-[#008744] text-[12px] sm:text-xs font-bold px-3 py-1 rounded-full mb-4 select-none">
-                        <BanglaDate/>
+                        <BanglaDate />
                     </div>
 
                     {/* Main Heading Text */}
@@ -31,10 +31,21 @@ export default function HeroSection() {
 
                     {/* Action Button Element */}
                     <Link
-                        href="/products"
+                        href="#allProduct"
                         className="flex items-center justify-center px-6 h-11 bg-[#008744] hover:bg-[#007038] active:bg-[#005c2e] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200"
                     >
-                        সব পণ্য দেখুন
+                        <button
+                            type="button"
+                            onClick={() => {
+                                document.getElementById("allProduct")?.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                });
+                            }}
+                            className="flex items-center justify-center px-6 h-11 bg-[#008744] hover:bg-[#007038] active:bg-[#005c2e] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200"
+                        >
+                            সব পণ্য দেখুন
+                        </button>
                     </Link>
                 </div>
 

@@ -1,5 +1,6 @@
 import AllProducts from "@/componants/HomePage/AllProducts";
 import HeroSection from "@/componants/HomePage/HeroSection";
+import ProductToolbar from "@/componants/HomePage/ProductToolbar";
 import { Suspense } from "react";
 
 
@@ -33,7 +34,8 @@ export interface Market {
 }
 
 // const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products'
-const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
+// const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
+const API_URL = 'https://openapi.programming-hero.com/api/bazardor/products'
 
 const getProduct = async () => {
   const res = await fetch(API_URL)
@@ -73,30 +75,35 @@ export default async function Home() {
   return (
 
     <div>
+
       <HeroSection />
 
+
+      {/* upper percentage product */}
       <div className="container space-y-4 mx-auto my-10">
-        <h1 className="text-4xl">▲ আজ দাম বেড়েছে</h1>
+        <h1 className="text-2xl"><span className="text-[#008744]">▲</span> আজ দাম বেড়েছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
           {risers.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
       </div>
       
+
+      {/* lower percentage product */}
       <div className="container space-y-4 mx-auto my-10">
-        <h1 className="text-4xl">▼ আজ দাম কমেছে</h1>
+        <h1 className="text-2xl"><span className="text-[#008744]">▼</span> আজ দাম কমেছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
           {droper.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
       </div>
 
-      <div className="container space-y-4 mx-auto my-10">
-        <h1 className="text-4xl ">সব পণ্য</h1>
-        <p>মোট {totalProductsBn}টি পণ্য দেখানো হচ্ছে</p>
-        <Suspense fallback={'loading..'}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
-            {products.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
-          </div>
-        </Suspense>
+
+
+      {/* all products */}
+      <div
+        id="allProduct" 
+        className="container space-y-4 mx-auto my-10 scroll-mt-6">
+
+        <ProductToolbar products={products} />
       </div>
 
 

@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import type { ProductType } from '@/types/product';
 import CategoryProducts from './CategoryProducts';
 
-const API_URL =
-    'https://api.abcz.workers.dev/api/bazardor/products';
+// const API_URL ='https://api.abcz.workers.dev/api/bazardor/products';
+const API_URL ='https://openapi.programming-hero.com/api/bazardor/products';
 
 async function getCategories(id: string): Promise<ProductType[]> {
     const response = await fetch(API_URL, {

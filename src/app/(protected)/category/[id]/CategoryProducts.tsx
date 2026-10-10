@@ -64,6 +64,7 @@ export default function CategoryProducts({
                     <AllProducts
                         key={product.id}
                         product={product}
+                        
                     />
                 ))}
             </div>
