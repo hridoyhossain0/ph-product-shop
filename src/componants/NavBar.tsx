@@ -17,7 +17,7 @@ const NavBar = () => {
 
         const fetchCategories = async () => {
             try {
-                const res = await fetch('https://api.api-store.workers.dev/api/bazardor/categories');
+                const res = await fetch('https://api.abcz.workers.dev/api/bazardor/categories');
                 const data = await res.json();
                 setCategories(data);
             } catch (err) {

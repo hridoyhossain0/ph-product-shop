@@ -12,6 +12,9 @@ export default function SignInPage() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    const [socialLoading, setSocialLoading] = useState<
+        'google' | 'github' | null
+    >(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -40,14 +43,24 @@ export default function SignInPage() {
         }
     };
 
-    const handleSocialSignIn = async (provider: 'google' | 'github') => {
+
+
+
+    const handleSocialSignIn = async (
+        provider: 'google' | 'github'
+    ) => {
+        setSocialLoading(provider);
+        setErrorMsg('');
+
         try {
             await authClient.signIn.social({
                 provider,
-                callbackURL: '/'
+                callbackURL: '/',
             });
         } catch (err) {
             console.error(err);
+            setErrorMsg(`${provider} দিয়ে সাইন ইন করা যায়নি। আবার চেষ্টা করুন।`);
+            setSocialLoading(null);
         }
     };
 
@@ -132,26 +145,46 @@ export default function SignInPage() {
                     <button
                         type="button"
                         onClick={() => handleSocialSignIn('google')}
-                        className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors"
+                        disabled={socialLoading !== null || loading}
+                        className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                        <FcGoogle />
-                        <div className="flex flex-col text-left leading-tight">
-                            <span>Google দিয়ে</span>
-                            <span>চালিয়ে যান</span>
-                        </div>
+                        {socialLoading === 'google' ? (
+                            <>
+                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-[#008744]" />
+                                <span>লোড হচ্ছে...</span>
+                            </>
+                        ) : (
+                            <>
+                                <FcGoogle className="text-lg shrink-0" />
+                                <div className="flex flex-col text-left leading-tight">
+                                    <span>Google দিয়ে</span>
+                                    <span>চালিয়ে যান</span>
+                                </div>
+                            </>
+                        )}
                     </button>
 
                     {/* GitHub Button */}
                     <button
                         type="button"
                         onClick={() => handleSocialSignIn('github')}
-                        className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors"
+                        disabled={socialLoading !== null || loading}
+                        className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                        <FaGithub />
-                        <div className="flex flex-col text-left leading-tight">
-                            <span>GitHub দিয়ে</span>
-                            <span>চালিয়ে যান</span>
-                        </div>
+                        {socialLoading === 'github' ? (
+                            <>
+                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-[#008744]" />
+                                <span>লোড হচ্ছে...</span>
+                            </>
+                        ) : (
+                            <>
+                                <FaGithub className="text-lg shrink-0" />
+                                <div className="flex flex-col text-left leading-tight">
+                                    <span>GitHub দিয়ে</span>
+                                    <span>চালিয়ে যান</span>
+                                </div>
+                            </>
+                        )}
                     </button>
                 </div>
 
