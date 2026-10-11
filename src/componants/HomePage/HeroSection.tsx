@@ -39,9 +39,9 @@ export default function HeroSection() {
                         <button
                             type="button"
                             onClick={() => {
-                                document.getElementById("allProduct")?.scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "start",
+                                document.getElementById('allProduct')?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start',
                                 });
                             }}
                             className="flex items-center justify-center px-6 h-11 bg-[#008744] hover:bg-[#007038] active:bg-[#005c2e] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200"

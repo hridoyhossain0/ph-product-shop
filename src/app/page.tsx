@@ -100,7 +100,6 @@ export default async function Home() {
 
       {/* all products */}
 
-      {/* All Products */}
       <div
         id="allProduct"
         className="container space-y-5 mx-auto my-15 scroll-mt-43"
