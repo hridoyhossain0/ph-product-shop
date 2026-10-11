@@ -21,3 +21,9 @@ A clean, high-performance web application designed to track and display real-tim
 * Persistent Database Storage: Backed by MongoDB to efficiently manage historical price records, track trends over time, and securely store user data.
 * Categorized Price Grids: Items are dynamically sorted into distinct sections like "Prices Up Today" and "Prices Down Today" for effortless navigation.
 * Responsive Multi-Column Layout: A fully responsive grid layout tailored to ensure text scannability and perfect rendering across desktop, tablet, and mobile displays.
+
+
+
+
+
+## Live link : https://ph-product-shop.vercel.app/
