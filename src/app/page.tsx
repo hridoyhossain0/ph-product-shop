@@ -33,6 +33,9 @@ export interface Market {
   max: number
 }
 
+
+
+// All api
 // const API_URL = 'https://api.api-store.workers.dev/api/bazardor/products'
 // const API_URL = 'https://api.abcz.workers.dev/api/bazardor/products'
 const API_URL = 'https://openapi.programming-hero.com/api/bazardor/products'
@@ -79,7 +82,8 @@ export default async function Home() {
       <HeroSection />
 
 
-      {/* upper percentage product */}
+      {/*    upper percentage product */}
+
       <div className="container space-y-5 mx-auto my-15">
         <h1 className="text-3xl"><span className="text-[#008744]">▲</span> আজ দাম বেড়েছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
@@ -89,6 +93,7 @@ export default async function Home() {
 
 
       {/* lower percentage product */}
+
       <div className="container space-y-5 mx-auto my-15">
         <h1 className="text-3xl"><span className="text-[#008744]">▼</span> আজ দাম কমেছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
@@ -98,7 +103,8 @@ export default async function Home() {
 
 
 
-      {/* all products */}
+      {/*     all products     */}
+      
 
       <div
         id="allProduct"
