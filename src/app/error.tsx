@@ -14,7 +14,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
     return (
         <main
-            className="min-h-screen grid place-items-center mt-10 p-6 bg-[#f0f5f0] text-[#253129] font-sans"
+            className="min-h-screen grid place-items-center z-50 mt-10 p-6 bg-[#f0f5f0] text-[#253129] font-sans"
             lang="bn"
         >
             <section

@@ -8,8 +8,8 @@ export default function HeroSection() {
 
 
     return (
-        <div className='container mt-8 mx-auto'>
-            <div className="w-full bg-[#F4F6F4] p-4 sm:p-6 md:p-8 rounded-3xl  border border-gray-100/50 shadow-sm font-sans relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className='container  mx-auto'>
+            <div className="w-full bg-[#FAFCFA] p-4 sm:p-6 md:p-8 rounded-3xl  border border-gray-100/50 shadow-sm font-sans relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
 
                 {/* Left Side: Content Wrapper */}
                 <div className="flex flex-col items-start text-left max-w-[580px] z-10">
@@ -34,6 +34,8 @@ export default function HeroSection() {
                         href="#allProduct"
                         className="flex items-center justify-center px-6 h-11 bg-[#008744] hover:bg-[#007038] active:bg-[#005c2e] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200"
                     >
+
+                        {/* Smooth Scroll Button */}
                         <button
                             type="button"
                             onClick={() => {
@@ -46,6 +48,7 @@ export default function HeroSection() {
                         >
                             সব পণ্য দেখুন
                         </button>
+
                     </Link>
                 </div>
 

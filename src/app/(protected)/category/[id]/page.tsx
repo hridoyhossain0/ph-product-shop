@@ -38,7 +38,7 @@ export default async function CategoryDetailPage({
     const category = products[0];
 
     return (
-        <main className="min-h-screen bg-[#f0f5f0] px-4 py-6 sm:px-6">
+        <main className="min-h-screen bg-[#f0f5f0] px-4  sm:px-6">
             <div className="mx-auto max-w-6xl">
 
                 {/* Category header */}

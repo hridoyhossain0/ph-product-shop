@@ -49,28 +49,28 @@ export default async function Home() {
   const products = await getProduct()
 
   const totalProductsBn = new Intl.NumberFormat('bn-BD').format(products.length);
-  const filterUpProduct = products.filter((product : ProductType) => product.change.dir === 'up')
-  const filterDownProduct = products.filter((product : ProductType)=> product.change.dir === 'down')
+  const filterUpProduct = products.filter((product: ProductType) => product.change.dir === 'up')
+  const filterDownProduct = products.filter((product: ProductType) => product.change.dir === 'down')
 
 
   const risers = filterUpProduct
-    .map((product : ProductType)  => {
+    .map((product: ProductType) => {
       let netChange = 0;
       if (product.change?.dir === "up") netChange = product.change.pct;
       if (product.change?.dir === "down") netChange = -product.change.pct;
       return { ...product, netChange };
     })
-    .sort((a : ProductType & { netChange: number }, b : ProductType & { netChange: number }) => b.netChange - a.netChange)
+    .sort((a: ProductType & { netChange: number }, b: ProductType & { netChange: number }) => b.netChange - a.netChange)
     .slice(0, 6);
 
   const droper = filterDownProduct
-    .map((product : ProductType)  => {
+    .map((product: ProductType) => {
       let netChange = 0;
       if (product.change?.dir === "up") netChange = product.change.pct;
       if (product.change?.dir === "down") netChange = -product.change.pct;
       return { ...product, netChange };
     })
-    .sort((a : ProductType & { netChange: number }, b : ProductType & { netChange: number })  => b.netChange  - a.netChange )
+    .sort((a: ProductType & { netChange: number }, b: ProductType & { netChange: number }) => b.netChange - a.netChange)
     .slice(0, 6);
   return (
 
@@ -83,26 +83,28 @@ export default async function Home() {
       <div className="container space-y-5 mx-auto my-15">
         <h1 className="text-3xl"><span className="text-[#008744]">▲</span> আজ দাম বেড়েছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
-          {risers.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
+          {risers.map((product: ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
       </div>
-      
+
 
       {/* lower percentage product */}
       <div className="container space-y-5 mx-auto my-15">
         <h1 className="text-3xl"><span className="text-[#008744]">▼</span> আজ দাম কমেছে</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 ">
-          {droper.map((product : ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
+          {droper.map((product: ProductType & { netChange: number }) => <AllProducts key={product.id} product={product} />)}
         </div>
       </div>
 
 
 
       {/* all products */}
-      <div
-        id="allProduct" 
-        className="container space-y-5 mx-auto my-15 scroll-mt-6">
 
+      {/* All Products */}
+      <div
+        id="allProduct"
+        className="container space-y-5 mx-auto my-15 scroll-mt-43"
+      >
         <ProductToolbar products={products} />
       </div>
 

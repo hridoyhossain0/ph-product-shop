@@ -7,7 +7,6 @@ import { authClient } from "@/lib/auth-client";
 import BanglaDate from "./Date";
 import NavBar from "./NavBar";
 import ProfileDropdown from "./ProfileDropdown";
-import Marquee from "../app/(protected)/Marquee";
 import toast from "react-hot-toast";
 
 
@@ -21,6 +20,7 @@ const Header = () => {
 
 
     const { data: session, isPending } = authClient.useSession();
+    
 
 
     const handleSignOut = async () => {
@@ -62,7 +62,7 @@ const Header = () => {
                     {/* Left Side: Logo & App Branding Meta */}
                     <Link href={'/'}>
                         <div className="flex items-center gap-3">
-                            <div className="w-[42px] h-[42px] bg-[#008744] rounded-xl flex items-center justify-center text-white shadow-sm">
+                            <div className="w-[42px] h-[42px] bg-[#05893E] rounded-xl flex items-center justify-center text-white shadow-sm">
                                 <Image src={Logo} height={20} width={20} alt="logo" />
                             </div>
 

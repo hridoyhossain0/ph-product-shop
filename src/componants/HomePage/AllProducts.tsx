@@ -43,7 +43,7 @@ const AllProducts = ({ product }: { product: ProductType }) => {
     };
     return (
         <Link href={`/product/${product.id}`}>
-            <div className="w-full max-w-[500px] m-auto bg-[#fcfdfe] border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-200">
+            <div className="w-full max-w-[500px] m-auto bg-[#FAFCFA] border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-200">
                 {/* Top Section Layout */}
                 <div className="flex items-start gap-4 mb-auto">
                     {/* Render Emoji Wrapper with specific visual styling properties */}

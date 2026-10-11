@@ -92,7 +92,7 @@ export default async function ProductDetailPage({
     const unit = translateUnit(product.unit);
 
     return (
-        <main className="min-h-screen bg-[#f7f9f6] p-4 text-gray-800 md:p-6">
+        <main className="min-h-screen bg-[##F0F5F0]  text-gray-800 ">
             <div className="mx-auto w-full max-w-6xl">
 
                 {/* Breadcrumb */}
