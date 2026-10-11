@@ -102,7 +102,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F4F6F4] px-4 font-sans mt-[-10]">
+    <div className="min-h-screen w-full flex flex-col items-center justify-start bg-[#F4F6F4] px-4 font-sans py-10">
 
       {/* Header Info */}
       <div className="text-center mb-6">

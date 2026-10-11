@@ -35,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         <Marquee />
-        <main className="bg-[#F0F5F0]">
+        <main className=" pt-10 bg-[#F0F5F0]">
           <Toaster
             position="top-center"
             reverseOrder={false}

@@ -74,7 +74,7 @@ export default async function Home() {
     .slice(0, 6);
   return (
 
-    <div className="mt-10">
+    <div className="">
 
       <HeroSection />
 

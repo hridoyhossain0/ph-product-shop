@@ -96,7 +96,7 @@ export default function SignInPage() {
 
 
     return (
-        <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F4F6F4] px-4 font-sans ">
+        <div className="min-h-screen w-full flex flex-col items-center justify-start bg-[#F4F6F4] px-4 py-10 font-sans ">
 
             {/* Header Info */}
             <div className="text-center mb-6">
