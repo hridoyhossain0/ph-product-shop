@@ -17,7 +17,9 @@ export default function SignUpPage() {
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
+  const [socialLoading, setSocialLoading] = useState<
+    "google" | "github" | null
+  >(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,9 +72,14 @@ export default function SignUpPage() {
 
 
 
-  const handleSocialSignIn = async (
+
+
+  const handleSocialSignUp = async (
     provider: "google" | "github"
   ) => {
+    if (socialLoading) return;
+
+    setSocialLoading(provider);
     setErrorMsg("");
 
     const providerName =
@@ -83,23 +90,45 @@ export default function SignUpPage() {
     );
 
     try {
-      await authClient.signIn.social({
+      const { data, error } = await authClient.signIn.social({
         provider,
         callbackURL: "/",
       });
 
-      // OAuth redirect হলে পরবর্তী page-এ চলে যাবে।
-      toast.dismiss(toastId);
+      if (error) {
+        console.error(`${providerName} OAuth error:`, error);
+
+        const message =
+          error.message ||
+          `${providerName} দিয়ে সাইন আপ করা যায়নি।`;
+
+        setErrorMsg(message);
+        toast.error(message, { id: toastId });
+        return;
+      }
+
+      if (data?.url) {
+        toast.dismiss(toastId);
+        window.location.assign(data.url);
+        return;
+      }
+
+      const message = "OAuth redirect URL পাওয়া যায়নি।";
+      setErrorMsg(message);
+      toast.error(message, { id: toastId });
     } catch (err) {
-      console.error(err);
+      console.error(`${providerName} OAuth exception:`, err);
 
       const message =
         `${providerName} দিয়ে সাইন আপ করা যায়নি। আবার চেষ্টা করুন।`;
 
       setErrorMsg(message);
       toast.error(message, { id: toastId });
+    } finally {
+      setSocialLoading(null);
     }
   };
+
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-start bg-[#F4F6F4] px-4 font-sans ">
@@ -214,26 +243,30 @@ export default function SignUpPage() {
           {/* Google Button */}
           <button
             type="button"
-            onClick={() => handleSocialSignIn('google')}
-            className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors"
-          >
+            onClick={() => handleSocialSignUp('google')}
+            disabled={loading || socialLoading !== null}
+            className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"          >
             <FcGoogle />
             <div className="flex flex-col text-left leading-tight">
-              <span>Google দিয়ে</span>
-              <span>চালিয়ে যান</span>
+              <span>
+                {socialLoading === "google" ? "লোড হচ্ছে..." : "Google দিয়ে"}
+              </span>
+              {socialLoading !== "google" && <span>চালিয়ে যান</span>}
             </div>
           </button>
 
           {/* GitHub Button */}
           <button
             type="button"
-            onClick={() => handleSocialSignIn('github')}
-            className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors"
-          >
+            onClick={() => handleSocialSignUp('github')}
+            disabled={loading || socialLoading !== null}
+            className="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"          >
             <FaGithub />
             <div className="flex flex-col text-left leading-tight">
-              <span>GitHub দিয়ে</span>
-              <span>চালিয়ে যান</span>
+              <span>
+                {socialLoading === "github" ? "লোড হচ্ছে..." : "GitHub দিয়ে"}
+              </span>
+              {socialLoading !== "github" && <span>চালিয়ে যান</span>}
             </div>
           </button>
         </div>

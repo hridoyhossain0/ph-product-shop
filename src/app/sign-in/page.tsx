@@ -63,33 +63,57 @@ export default function SignInPage() {
 
 
 
+
     const handleSocialSignIn = async (
         provider: "google" | "github"
     ) => {
         setSocialLoading(provider);
         setErrorMsg("");
 
+        const providerName =
+            provider === "google" ? "Google" : "GitHub";
+
         const toastId = toast.loading(
-            `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন ইন হচ্ছে...`
+            `${providerName} দিয়ে সাইন ইন হচ্ছে...`
         );
 
         try {
-            await authClient.signIn.social({
+            const { data, error } = await authClient.signIn.social({
                 provider,
                 callbackURL: "/",
             });
 
-            // OAuth সাধারণত অন্য পেজে redirect করে।
-            // Redirect না হলে loading toast সরিয়ে দিন।
-            toast.dismiss(toastId);
-        } catch (err) {
-            console.error(err);
+            if (error) {
+                console.error(`${providerName} OAuth error:`, error);
 
-            const message =
-                `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন ইন করা যায়নি। আবার চেষ্টা করুন।`;
+                const message =
+                    error.message || `${providerName} দিয়ে সাইন ইন ব্যর্থ হয়েছে।`;
 
-            setErrorMsg(message);
-            toast.error(message, { id: toastId });
+                setErrorMsg(message);
+                toast.error(message, { id: toastId });
+                return;
+            }
+
+            if (data?.url) {
+                window.location.assign(data.url);
+                return;
+            }
+
+            toast.error(
+                `${providerName} থেকে redirect URL পাওয়া যায়নি।`,
+                { id: toastId }
+            );
+        } catch (error) {
+            console.error(`${providerName} OAuth exception:`, error);
+
+            setErrorMsg(
+                `${providerName} দিয়ে সাইন ইন করা যায়নি। আবার চেষ্টা করুন।`
+            );
+
+            toast.error("Request ব্যর্থ হয়েছে। Console পরীক্ষা করুন।", {
+                id: toastId,
+            });
+        } finally {
             setSocialLoading(null);
         }
     };
